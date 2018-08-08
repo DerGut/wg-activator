@@ -17,10 +17,12 @@ USERNAME = config.get('Login', 'email')
 PASSWORD = config.get('Login', 'password')
 LISTING_URL = config.get('Listing', 'listing_url')
 DELAY = int(config.get('Driver', 'delay'))
+ENV = config.get('System', 'environment')
 
 # Login
 options = Options()
-options.add_argument('--headless')
+if ENV == 'production':
+    options.add_argument('--headless')
 driver = webdriver.Chrome(options=options)
 driver.get('https://wg-gesucht.de')
 

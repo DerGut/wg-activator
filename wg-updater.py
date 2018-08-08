@@ -12,9 +12,9 @@ from selenium.webdriver.common.keys import Keys
 config = ConfigParser()
 conf_file = open('config.ini')
 config.readfp(conf_file)
-USERNAME = os.environ['EMAIL']
-PASSWORD = os.environ['PASSWORD']
-LISTING_URL = os.environ['URL']
+USERNAME = config.get('Login', 'email')
+PASSWORD = config.get('Login', 'password')
+LISTING_URL = config.get('Listing', 'listing_url')
 DELAY = int(config.get('Driver', 'delay'))
 
 # Login

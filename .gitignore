@@ -2,3 +2,4 @@ config.ini
 geckodriver.log
 .idea/
 venv/
+updates.log

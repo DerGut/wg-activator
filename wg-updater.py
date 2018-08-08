@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+import logging
 
 import time
 from configparser import ConfigParser
@@ -8,6 +8,12 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+
+logging.basicConfig(
+    filename='updates.log',
+    filemode='a',
+    level=logging.INFO
+)
 
 # Load configuration
 config = ConfigParser()
@@ -59,5 +65,5 @@ while True:
     time.sleep(2)
     btn.send_keys(Keys.SPACE)
     assert 'zehn Minuten' in driver.page_source
-    print("Reloaded at {}".format(datetime.now().strftime("%Y-%m-%d %H:%M")))
+    logging.info("Reloaded at {}".format(datetime.now().strftime("%Y-%m-%d %H:%M")))
     time.sleep(DELAY)

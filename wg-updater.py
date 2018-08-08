@@ -6,6 +6,7 @@ from configparser import ConfigParser
 
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
 # Load configuration
@@ -18,8 +19,11 @@ LISTING_URL = config.get('Listing', 'listing_url')
 DELAY = int(config.get('Driver', 'delay'))
 
 # Login
-driver = webdriver.Chrome()
+options = Options()
+options.add_argument('--headless')
+driver = webdriver.Chrome(options=options)
 driver.get('https://wg-gesucht.de')
+
 # Remove cookie button
 btn = driver.find_element_by_id("cookie-confirm").click()
 driver.find_element_by_link_text("LOGIN").click()

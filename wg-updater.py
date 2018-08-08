@@ -16,10 +16,9 @@ USERNAME = os.environ['EMAIL']
 PASSWORD = os.environ['PASSWORD']
 LISTING_URL = os.environ['URL']
 DELAY = int(config.get('Driver', 'delay'))
-CHROMEDRIVER_PATH = '/usr/local/bin/chromedriver' # mac-only
 
 # Login
-driver = webdriver.Chrome(CHROMEDRIVER_PATH)
+driver = webdriver.Chrome()
 driver.get('https://wg-gesucht.de')
 # Remove cookie button
 btn = driver.find_element_by_id("cookie-confirm").click()

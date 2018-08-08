@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os
+
 import time
 from configparser import ConfigParser
 
@@ -11,9 +13,9 @@ from selenium.webdriver.common.by import By
 config = ConfigParser()
 conf_file = open('config.ini')
 config.readfp(conf_file)
-USERNAME = config.get('Login', 'email')
-PASSWORD = config.get('Login', 'password')
-LISTING_URL = config.get('Listing', 'listing_url')
+USERNAME = os.environ['EMAIL']
+PASSWORD = os.environ['PASSWORD']
+LISTING_URL = os.environ['URL']
 DELAY = int(config.get('Driver', 'delay'))
 CHROMEDRIVER_PATH = '/usr/local/bin/chromedriver' # mac-only
 

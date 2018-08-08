@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import logging
+import random
 
 import time
 from configparser import ConfigParser
@@ -24,6 +25,7 @@ PASSWORD = config.get('Login', 'password')
 LISTING_URL = config.get('Listing', 'listing_url')
 DELAY = int(config.get('Driver', 'delay'))
 ENV = config.get('System', 'environment')
+MARGIN = config.get('Driver', 'margin')
 
 # Login
 options = Options()
@@ -66,4 +68,11 @@ while True:
     btn.send_keys(Keys.SPACE)
     assert 'zehn Minuten' in driver.page_source
     logging.info("Reloaded at {}".format(datetime.now().strftime("%Y-%m-%d %H:%M")))
-    time.sleep(DELAY)
+
+    # offset = percent of margin around delay
+    if MARGIN and MARGIN.isdigit() and MARGIN != 0.0:
+        offset = DELAY * ((random.random() * MARGIN * 2) - MARGIN)
+    else:
+        offset = 0.0
+
+    time.sleep(DELAY + offset)

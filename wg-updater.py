@@ -27,7 +27,7 @@ DELAY = int(config.get('Driver', 'delay'))
 ENV = config.get('System', 'environment')
 MARGIN = config.get('Driver', 'margin')
 
-logging.info('Starting wg-updater')
+logging.info('Starting up...')
 
 # Login
 options = Options()
@@ -69,7 +69,9 @@ while True:
         btn.send_keys(Keys.TAB)
         time.sleep(2)
         btn.send_keys(Keys.SPACE)
+
         assert 'zehn Minuten' in driver.page_source
+
         logging.info("Reloaded")
 
     except NoSuchElementException as e:
@@ -82,5 +84,7 @@ while True:
         offset = DELAY * ((random.random() * MARGIN * 2) - MARGIN)
     else:
         offset = 0.0
+
+    logging.info(f"Sleeping for {(DELAY + offset) // 60}min")
 
     time.sleep(DELAY + offset)

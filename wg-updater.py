@@ -25,7 +25,7 @@ PASSWORD = config.get('Login', 'password')
 LISTING_URL = config.get('Listing', 'listing_url')
 DELAY = int(config.get('Driver', 'delay'))
 ENV = config.get('System', 'environment')
-MARGIN = config.get('Driver', 'margin')
+MARGIN = float(config.get('Driver', 'margin')) or 0.0
 
 logging.info('Starting up...')
 
@@ -49,9 +49,10 @@ time.sleep(5)
 
 while True:
     try:
+        logging.info('Starting to reload')
+
         # Open listing
-        driver.get(
-            LISTING_URL)
+        driver.get(LISTING_URL)
         time.sleep(3)
         contact = driver.find_element_by_class_name('bottom_contact_box')
         edit = contact.find_element_by_link_text('ANGEBOT BEARBEITEN')
@@ -80,11 +81,10 @@ while True:
         logging.error(e)
 
     # offset = percent of margin around delay
-    if MARGIN and MARGIN.isdigit() and MARGIN != 0.0:
-        offset = DELAY * ((random.random() * MARGIN * 2) - MARGIN)
+    if MARGIN != 0.0:
+        offset = int(DELAY * ((random.random() * MARGIN * 2.0) - MARGIN))
     else:
         offset = 0.0
 
     logging.info(f"Sleeping for {(DELAY + offset) // 60}min")
-
     time.sleep(DELAY + offset)

@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "wg-updater.py"]
+CMD ["wait-for-grid.sh", "python", "wg-updater.py"]

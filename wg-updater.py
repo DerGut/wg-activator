@@ -6,7 +6,6 @@ from configparser import ConfigParser
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
 logging.basicConfig(
@@ -72,12 +71,8 @@ if __name__ == '__main__':
     ENV = config.get('System', 'environment')
     MARGIN = float(config.get('Driver', 'margin')) or 0.0
 
-    driver_options = Options()
-    if ENV == 'production':
-        driver_options.add_argument('--headless')
-
     logging.info('Starting up...')
-    web_driver = login(driver_options)
+    web_driver = login()
 
     while True:
         try:
@@ -89,7 +84,7 @@ if __name__ == '__main__':
         except WebDriverException as e:
             logging.error(e)
             web_driver.quit()
-            web_driver = login(driver_options)
+            web_driver = login()
 
         # offset = percent of margin around delay
         if MARGIN != 0.0:

@@ -4,6 +4,7 @@ import time
 from configparser import ConfigParser
 
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -17,7 +18,7 @@ logging.basicConfig(
 
 
 def login(options):
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote("selenium/wd/hub", DesiredCapabilities.CHROME, options=options)
     driver.get('https://wg-gesucht.de')
 
     # Remove cookie button

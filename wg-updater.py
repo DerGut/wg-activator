@@ -9,15 +9,13 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 from selenium.webdriver.common.keys import Keys
 
 logging.basicConfig(
-    filename='updates.log',
-    filemode='a',
     level=logging.INFO,
     format='%(levelname)s:%(asctime)-15s:%(message)s'
 )
 
 
 def login(options):
-    driver = webdriver.Remote("chrome/wd/hub", DesiredCapabilities.CHROME, options=options)
+    driver = webdriver.Remote("hub/wd/hub", DesiredCapabilities.CHROME, options=options)
     driver.get('https://wg-gesucht.de')
 
     # Remove cookie button

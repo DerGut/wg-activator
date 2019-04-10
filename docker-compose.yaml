@@ -18,3 +18,6 @@ services:
 
   wg-activator:
     image: jsteinmann/wg-activator
+    depends_on:
+      - chrome
+    restart: always

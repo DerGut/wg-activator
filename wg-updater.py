@@ -18,7 +18,7 @@ logging.basicConfig(
 
 
 def login(options):
-    driver = webdriver.Remote("selenium/wd/hub", DesiredCapabilities.CHROME, options=options)
+    driver = webdriver.Remote("chrome/wd/hub", DesiredCapabilities.CHROME, options=options)
     driver.get('https://wg-gesucht.de')
 
     # Remove cookie button

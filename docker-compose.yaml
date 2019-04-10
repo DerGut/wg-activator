@@ -6,15 +6,15 @@ services:
     container_name: selenium-hub
     ports:
       - "4444:4444"
-    chrome:
-      image: selenium/node-chrome:3.141.59-mercury
-      volumes:
-        - /dev/shm:/dev/shm
-      depends_on:
-        - selenium-hub
-      environment:
-        - HUB_HOST=selenium-hub
-        - HUB_PORT=4444
+  chrome:
+    image: selenium/node-chrome:3.141.59-mercury
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
 
   wg-activator:
     image: jsteinmann/wg-activator

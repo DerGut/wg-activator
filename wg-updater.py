@@ -15,7 +15,7 @@ logging.basicConfig(
 
 
 def login():
-    driver = webdriver.Remote("selenium-hub/wd/hub", DesiredCapabilities.FIREFOX)
+    driver = webdriver.Remote("selenium-hub:4444/wd/hub", DesiredCapabilities.FIREFOX)
     driver.get('https://wg-gesucht.de')
 
     # Remove cookie button

@@ -34,26 +34,22 @@ def login():
 
 def reload(driver):
     # Open listing
-    driver.get(LISTING_URL)
-    time.sleep(3)
-    contact = driver.find_element_by_class_name('bottom_contact_box')
-    edit = contact.find_element_by_link_text('ANGEBOT BEARBEITEN')
-    edit.send_keys(Keys.TAB)
-    time.sleep(1)
-    edit.click()
+    driver.get(EDIT_URL)
     time.sleep(3)
 
     # Refresh listing
-    btn = driver.find_element_by_class_name('btn-orange')  # weiter
-    btn.send_keys(Keys.TAB)
-    time.sleep(2)
-    btn.send_keys(Keys.SPACE)
-    btn = driver.find_element_by_class_name('btn-orange')  # Änderungen ubernehmen
-    btn.send_keys(Keys.TAB)
-    time.sleep(2)
-    btn.send_keys(Keys.SPACE)
+    def orange_button():
+        return driver.find_element_by_class_name('btn-orange')
 
-    assert 'zehn Minuten' in driver.page_source
+    # weiter
+    orange_button().send_keys(Keys.TAB)
+    time.sleep(2)
+    orange_button().send_keys(Keys.SPACE)
+
+    # Änderungen ubernehmen
+    orange_button().send_keys(Keys.TAB)
+    time.sleep(2)
+    orange_button().send_keys(Keys.SPACE)
 
 
 if __name__ == '__main__':
@@ -64,7 +60,9 @@ if __name__ == '__main__':
 
     USERNAME = config.get('Login', 'email')
     PASSWORD = config.get('Login', 'password')
-    LISTING_URL = config.get('Listing', 'listing_url')
+    LISTING_ID = config.get('Listing', 'listing_id')
+    LISTING_URL = "https://www.wg-gesucht.de/{}.html".format(LISTING_ID)
+    EDIT_URL = "https://www.wg-gesucht.de/angebot-bearbeiten.html?edit={}".format(LISTING_ID)
     DELAY = int(config.get('Driver', 'delay'))
     ENV = config.get('System', 'environment')
     MARGIN = float(config.get('Driver', 'margin')) or 0.0
